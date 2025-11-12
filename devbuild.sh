@@ -3,6 +3,14 @@ set -e
 
 mkdir -p bin
 
+# create all builds
+if [ "$1" == "all" ]; then
+    GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o bin/coolsnippets-darwin-amd64
+    GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bin/coolsnippets-linux-amd64
+    GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o bin/coolsnippets-windows-amd64.exe
+    exit 0
+fi
+
 # bash script to build for specific OS/ARCH
 # usage: ./devbuild.sh [darwin-amd64|linux-amd64|windows-amd64]
 if [ "$1" == "darwin-amd64" ]; then
